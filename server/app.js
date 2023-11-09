@@ -1,11 +1,15 @@
+const bodyParser = require("body-parser");
 const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+
+
 const app = express();
 const port = 8080;
+dotenv.config();
 
-// Define a route
-app.get("/", (req, res) => {
-  res.send("CMS server is running");
-});
+app.use(bodyParser.json());
+app.use(cors());
 
 // Start the server
 app.listen(port, () => {

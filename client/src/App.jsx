@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
-import Login from "./views/Login";
-import Signup from "./views/Signup.jsx";
+import AddPost from "./views/AddPost.jsx";
+import EditPost from "./views/EditPost.jsx";
 import Navigation from "./components/navigation/Navigation.jsx";
 
 const App = () => {
@@ -10,8 +10,8 @@ const App = () => {
       <Navigation />
       <Routes>
         <Route path="/" exact element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/add-post" element={<AddPost />} />
+        <Route path="/edit-post" element={<EditPost />} />
       </Routes>
     </div>
   );

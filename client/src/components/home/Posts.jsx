@@ -7,7 +7,7 @@ const Posts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/posts")
+      .get(`${import.meta.env.VITE_LOCALHOST_API_URL}posts`)
       .then((res) => setPosts(res.data))
       .catch((err) => console.log(err));
   }, []);

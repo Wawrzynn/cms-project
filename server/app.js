@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
 const postRoutes = require("./routes/posts");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 const port = 8080;
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/posts", postRoutes);
+app.use("/users", authRoutes);
 
 // Start the server
 mongoose

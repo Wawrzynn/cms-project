@@ -2,7 +2,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const {
     register,
     handleSubmit,
@@ -12,10 +12,10 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     await axios
-      .post(`${import.meta.env.VITE_LOCALHOST_API_URL}users/login`, data)
+      .post(`${import.meta.env.VITE_LOCALHOST_API_URL}users/register`, data)
       .then((response) => {
         console.log(response);
-        navigate("/");
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -24,6 +24,23 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label>Username:</label>
+        <input
+          {...register("username", {
+            required: "Username is required",
+            minLength: {
+              value: 5,
+              message: "Username must be at least 5 characters long",
+            },
+            maxLength: {
+              value: 15,
+              message: "Username must be at most 15 characters long",
+            },
+          })}
+        />
+        {errors.username && <span>{errors.username.message}</span>}
+      </div>
       <div>
         <label>Email:</label>
         <input
@@ -70,4 +87,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

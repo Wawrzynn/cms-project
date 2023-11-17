@@ -3,6 +3,8 @@ import Home from "./views/Home";
 import AddPost from "./views/AddPost.jsx";
 import EditPost from "./views/EditPost.jsx";
 import Post from "./views/Post.jsx";
+import Login from "./views/Login.jsx";
+import Register from "./views/Register.jsx";
 import Navigation from "./components/navigation/Navigation.jsx";
 
 const App = () => {

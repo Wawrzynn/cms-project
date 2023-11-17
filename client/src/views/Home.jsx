@@ -2,8 +2,7 @@ import Posts from "../components/home/Posts";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="flex justify-center items-center mt-10">
       <Posts />
     </div>
   );

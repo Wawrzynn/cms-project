@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Button from "../reusable/Button.jsx";
+import { useNavigate } from "react-router-dom";
 
 const AddPostForm = () => {
   const {
@@ -7,6 +9,7 @@ const AddPostForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const { title, content } = data;
@@ -16,17 +19,24 @@ const AddPostForm = () => {
     };
     await axios
       .post(`${import.meta.env.VITE_LOCALHOST_API_URL}posts`, postObject)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        console.log(res.data);
+        navigate("/");
+      })
       .catch((error) => console.log(error));
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col justify-center items-center"
+    >
       <label htmlFor="title">Title</label>
       <input
         type="text"
         name="title"
         id="title"
+        className="border border-black p-2 rounded-md"
         {...register("title", {
           required: "true",
         })}
@@ -38,12 +48,13 @@ const AddPostForm = () => {
         id="content"
         cols="30"
         rows="10"
+        className="border border-black p-2 rounded-md"
         {...register("content", {
           required: "true",
         })}
       ></textarea>
       {errors.content && <span>This field is required</span>}
-      <button type="submit">Add Post</button>
+      <Button type="submit">Add Post</Button>
     </form>
   );
 };

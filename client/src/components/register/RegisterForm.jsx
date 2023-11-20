@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import ErrorModal from "../../components/reusable/ErrorModal.jsx";
 
 const RegisterForm = () => {
   const {
@@ -9,6 +11,7 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const [error, setError] = useState([]);
 
   const onSubmit = async (data) => {
     await axios
@@ -19,6 +22,7 @@ const RegisterForm = () => {
       })
       .catch((err) => {
         console.log(err);
+        setError(err.response.data.errors.map((e) => e.msg));
       });
   };
 
@@ -82,7 +86,14 @@ const RegisterForm = () => {
         {errors.password && <span>{errors.password.message}</span>}
       </div>
 
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
+      {error && (
+        <div>
+          {error.map((err, index) => (
+            <ErrorModal key={index} error={err} />
+          ))}
+        </div>
+      )}
     </form>
   );
 };

@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
 
 exports.getAllUsers = async (req, res) => {
   await User.find()
@@ -41,6 +42,13 @@ exports.login = async (req, res) => {
 
   if (!passwordMatch) {
     return res.status(400).json("Wrong password");
+  }
+
+  if (user && passwordMatch) {
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res.json({ token });
   }
 
   return res.status(200).json(user);

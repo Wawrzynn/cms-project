@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import ErrorModal from "../../components/reusable/ErrorModal.jsx";
 
 const LoginForm = () => {
   const {
@@ -9,6 +11,7 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const onSubmit = async (data) => {
     await axios
@@ -19,6 +22,7 @@ const LoginForm = () => {
       })
       .catch((err) => {
         console.log(err);
+        setError(err.response.data);
       });
   };
 
@@ -66,6 +70,7 @@ const LoginForm = () => {
       </div>
 
       <button type="submit">Login</button>
+      {error && <ErrorModal error={error} />}
     </form>
   );
 };

@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
 
   if (user && passwordMatch) {
     const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: "2h",
+      expiresIn: "1h",
     });
     res.json({ token });
   }
